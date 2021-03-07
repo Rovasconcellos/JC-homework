@@ -5,4 +5,6 @@ Learning how to add RMD file into this repo...trial 3... Emoji :)
 
 RMD file added. Let's test it!
 
-RMD file working... I think ;)
+Test-RMD-file
+RMD file tested and working, I think ;)
+RMD file working... I think ;
