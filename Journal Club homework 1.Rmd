@@ -93,26 +93,3 @@ ggplot(faithful) +
   geom_point(aes(x = eruptions, y = waiting, colour = eruptions < 3))
 ```
 
-If you simple want to set it to a value, put it outside of `aes()`
-
-```{r}
-ggplot(faithful) + 
-  geom_point(aes(x = eruptions, y = waiting),
-             colour = 'steelblue')
-```
-
-Some geoms only need a single mapping and will calculate the rest for you
-
-```{r}
-ggplot(faithful) + 
-  geom_histogram(aes(x = eruptions))
-```
-
-geoms are drawn in the order they are added. The point layer is thus drawn on
-top of the density contours in the example below.
-
-```{r}
-ggplot(faithful, aes(x = eruptions, y = waiting)) + 
-  geom_density_2d() + 
-  geom_point()
-```
