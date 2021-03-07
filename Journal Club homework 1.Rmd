@@ -9,3 +9,110 @@ output: html_document
 summary(iris)
 head(iris)
 ```
+
+---
+title: "ggplot2 examples and exercises"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document contains all the code that is displayed during the workshop. The
+document is an RMarkdown document which means that it can be compiled, along 
+with the code chunks thus executing and capturing the output of the code within
+the document. To read more about RMarkdown see the website for the package, as
+well as the [Get Started](https://rmarkdown.rstudio.com/lesson-1.html) guide.
+
+### Exercises
+While it is encouraged to follow along in this document as the workshop 
+progresses and execute the code to see the result, an important part is also to
+experiment and play, thus learning how the different settings affect the output.
+
+The document will contain code chunks with the code examples discussed during 
+the talk, but it will also contain chunks intended for completing small 
+exercises. These will use the examples as a starting point and ask you to modify
+the code to achieve a given output. Completing these are optional, but highly 
+recommended, either during or after the workshop.
+
+### Dependencies
+This document comes with a list of required packages. 
+
+```{r, echo=FALSE}
+packages <- c(
+  'ggplot2',
+  'ggrepel',
+  'patchwork',
+  'ggraph',
+  'dplyr',
+  'gganimate',
+  'gifski',
+  'ggforce',
+  'ggthemes',
+  'maps',
+  'sf',
+  'tidyr',
+  'concaveman',
+  'remotes'
+)
+# Uncomment the next lines (remove the first #) to install the packages
+# install.packages(packages)
+# remotes::install_github("hrbrmstr/hrbrthemes")
+# Load standard packages
+library(ggplot2)
+```
+
+### Datasets
+We will use an assortment of datasets throughout the document. The purpose is 
+mostly to showcase different plots, and less on getting some divine insight into
+the world. While not necessary we will call `data(<dataset>)` before using a new
+dataset to indicate the introduction of a new dataset.
+
+## Introduction
+We will look at the basic ggplot2 use using the faithful dataset, giving 
+information on the eruption pattern of the Old Faithful geyser in Yellowstone
+National Park.
+
+```{r}
+data("faithful")
+# Basic scatterplot
+ggplot(data = faithful, 
+       mapping = aes(x = eruptions, y = waiting)) + 
+  geom_point()
+# Data and mapping can be given both as global (in ggplot()) or per layer
+ggplot() + 
+  geom_point(mapping = aes(x = eruptions, y = waiting),
+             data = faithful)
+```
+
+If an aesthetic is linked to data it is put into `aes()`
+
+```{r}
+ggplot(faithful) + 
+  geom_point(aes(x = eruptions, y = waiting, colour = eruptions < 3))
+```
+
+If you simple want to set it to a value, put it outside of `aes()`
+
+```{r}
+ggplot(faithful) + 
+  geom_point(aes(x = eruptions, y = waiting),
+             colour = 'steelblue')
+```
+
+Some geoms only need a single mapping and will calculate the rest for you
+
+```{r}
+ggplot(faithful) + 
+  geom_histogram(aes(x = eruptions))
+```
+
+geoms are drawn in the order they are added. The point layer is thus drawn on
+top of the density contours in the example below.
+
+```{r}
+ggplot(faithful, aes(x = eruptions, y = waiting)) + 
+  geom_density_2d() + 
+  geom_point()
+```
