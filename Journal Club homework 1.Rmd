@@ -1,0 +1,11 @@
+---
+title: "Journal club homework"
+author: "Roberta Vasconcellos"
+date: "07/03/2021"
+output: html_document
+---
+
+```{r iris}
+summary(iris)
+head(iris)
+```
